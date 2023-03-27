@@ -1,7 +1,7 @@
 {
   "name": "project_structure",
   "version": "1.0.0",
-  "description": "An express js nice file structure, that saves you the stress of setting up file structure for your project.",
+  "description": "A Hackathon project, Beerkathon",
   "main": "config/server.js",
   "scripts": {
     "dev": "nodemon config/server.js"
