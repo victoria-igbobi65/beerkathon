@@ -1,18 +1,22 @@
 const { StatusCodes } = require('http-status-codes')
 const { AppError } = require("../errors/AppError");
-const { getUser } = require("../services/auth");
+const { getUser, addUser } = require("../services/auth");
+const { uniqueId } = require('../utils/helper');
+const catchAsync = require('../errors/catchAsync');
+const { welcomeMail } = require('../utils/email/sendMail');
 
-exports.signup = async( req, res) => {
+exports.signup = catchAsync( async( req, res) => {
+
     const { email } = req.body;
+    const employeePassword = uniqueId()
 
-    const userExists = await getUser({ email: email })
-
-    if ( userExists ){
-        throw new AppError(`Employee with email address exists!`, StatusCodes.CONFLICT )
-    }
-    res.status( StatusCodes.OK).json({
-        email
+    await addUser({ email: email, password: employeePassword })
+    await welcomeMail( email, employeePassword )
+    
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        msg: "User registration successful!"
     })
     
 
-}
+})
