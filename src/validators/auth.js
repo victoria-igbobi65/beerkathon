@@ -33,10 +33,10 @@ const loginSchema = joi.object().keys({
         .error(new Error("Provide valid email address")),
     password: joi
         .string()
-        .min(8)
+        .min(1)
         .trim()
         .required()
-        .error(new Error("Password must be at least 8 characters")),
+        .error(new Error("Please provide password!")),
 });
 
 const signupDto = validateBody(registerSchema);
