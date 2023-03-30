@@ -3,6 +3,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const { ticketRouter } = require('./src/routes/ticket')
 const { authRouter } = require("./src/routes/auth");
 const globalErrorHandler = require('./src/errors/errorhandler')
 const unknownEndpoint = require('./src/middlewares/unknownEndpoint')
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(cors()); 
 app.use(helmet());
 app.use('/auth', authRouter )
+app.use('/ticket', ticketRouter )
 
 
 
