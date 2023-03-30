@@ -1,5 +1,6 @@
 const {v4: uuid4} = require('uuid')
 const jwt = require("jsonwebtoken");
+const { nanoid } = require('nanoid');
 const { promisify } = require('util')
 const CONFIG = require('../../config/env')
 
@@ -14,7 +15,7 @@ const signToken = (id) => {
 const setCookies = (res, tokenName, token) => {
     return res.cookie(tokenName, token, {
         httpOnly: true,
-        secure: CONFIG.APP_ENV,
+        secure: CONFIG.AP,
         maxAge: CONFIG.MAXAGE
     });
 };
@@ -23,5 +24,9 @@ const decodeToken = async (token) => {
     return promisify(jwt.verify)(token, CONFIG.SECRET);
 };
 
+const generateTicket = () => {
+    return nanoid();
+}
 
-module.exports={ uniqueId, signToken, setCookies, decodeToken }
+
+module.exports={ uniqueId, signToken, setCookies, decodeToken, generateTicket }
