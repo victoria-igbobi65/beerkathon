@@ -13,7 +13,7 @@ const userSchema = new Schema({
         select: false,
         required: [true, "Please provide password!"],
     },
-    isMealAvailable: {
+    ticketAvailable: {
         type: Boolean,
         default: true
     },
