@@ -28,7 +28,7 @@ const handleDuplicateFieldsDb = (err) => {
 /*Development error handler*/
 const devHandler = (err, req, res, next) => {
 
-    logger.error( err )
+    console.log( err )
     const statusCode = err.statusCode || 500;
     const status = err.status || "error";
     res.status(statusCode).json({
