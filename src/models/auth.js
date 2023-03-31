@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+    _id: {
+        type: String,
+        required: [true, "please provide employee ID number!"],
+    },
     email: {
         type: String,
         required: [true, "Please provide a valid email address!"],

@@ -14,17 +14,24 @@ const validateBody = (schema) => {
 
 /* Registration Validator */
 const registerSchema = joi.object().keys({
+    id: joi
+        .string()
+        .required()
+        .length(5)
+        .pattern(/^\d+$/)
+        .error(new Error("Provide valid ID number")),
+
     email: joi
         .string()
         .email()
         .trim()
         .required()
         .error(new Error("Provide a valid email address")),
-
 });
 
 /* Login validator */
 const loginSchema = joi.object().keys({
+    
     email: joi
         .string()
         .email()
