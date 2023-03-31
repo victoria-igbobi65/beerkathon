@@ -5,39 +5,14 @@ const { uniqueId, signToken, setCookies } = require('../utils/helper');
 const catchAsync = require('../errors/catchAsync');
 const { welcomeMail } = require('../utils/email/sendMail');
 const transaction = require('../utils/mongooseTrans')
-const mongoose = require('mongoose')
 
 exports.signup = catchAsync( async( req, res) => {
 
-    const { email } = req.body;
+    const { email, id } = req.body;
     const employeePassword = uniqueId()
-
-    // const session = await mongoose.startSession()
-    // session.startTransaction()
-
-    // try{
-
-    //     await addUser({ email: email, password: employeePassword });
-    //     await welcomeMail(email, employeePassword);
-
-    //     await session.commitTransaction()
-    //     session.endSession()
-
-    //     res.status( StatusCodes.OK ).json({
-    //     status: true,
-    //     msg: "User registration successful!"
-    // })  
-    // }
-    // catch( err ){
-
-    //     await session.abortTransaction();
-    //     session.endSession()
-    //     throw new AppError(err, 500)
-
-    // }
     
     await transaction( async( session ) => {
-        await addUser({ email: email, password: employeePassword }, session );
+        await addUser({ _id: id, email: email, password: employeePassword }, session );
         await welcomeMail(email, employeePassword);
     })
     
