@@ -5,11 +5,12 @@ const { getUser } = require("../services/auth")
 
 
 const userExists = catchAsync( async( req, res, next ) => {
-    const email = req.body.email;
-    const found = await getUser({ email: email })
+    
+    const { email, id } = req.body;
+    const found = await getUser({ $or: [{ id: id }, { email: email }]})
 
     if ( found ){
-        throw new AppError(`Employee with email address exists!`, StatusCodes.CONFLICT );
+        throw new AppError(`Employee exists!`, StatusCodes.CONFLICT );
     }
     next();
 })
