@@ -7,6 +7,7 @@ const GMAIL_PASS = process.env.PASS;
 const APP_ENV = "production";
 const SECRET = process.env.SECRET_KEY;
 const MAXAGE = 60 * 60 * 1000;
+const NODE_ENV = process.env.NODE_ENV
 
 module.exports={
     DBURL,
@@ -15,5 +16,6 @@ module.exports={
     GMAIL_PASS,
     APP_ENV,
     SECRET,
-    MAXAGE
+    MAXAGE,
+    NODE_ENV
 }
