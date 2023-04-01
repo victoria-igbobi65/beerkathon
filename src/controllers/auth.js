@@ -12,7 +12,7 @@ exports.signup = catchAsync( async( req, res) => {
     const employeePassword = uniqueId()
     
     await transaction( async( session ) => {
-        await addUser({ _id: id, email: email, password: employeePassword }, session );
+        await addUser({ employeeId: id, email: email, password: employeePassword }, session );
         await welcomeMail(email, employeePassword);
     })
     
@@ -25,8 +25,8 @@ exports.signup = catchAsync( async( req, res) => {
 
 exports.login = catchAsync( async( req, res) => {
 
-    const { email, password } = req.body;
-    const user = await getUser({ email: email })
+    const { id, password } = req.body;
+    const user = await getUser({ $or: [{ employeeId: id}, { email: id }] })
 
     if ( !user || !( await user.correctPassword(password, user.password ))){
         throw new AppError( 'email or password incorrect!', StatusCodes.BAD_REQUEST )
