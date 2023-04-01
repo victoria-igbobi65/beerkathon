@@ -11,9 +11,9 @@ const ticketSchema = new Schema({
         type: String,
         required: [true, "Meal price required!"]
     },
-    userId: {
-        type: mongoose.Types.ObjectId,
-        required: [true, 'userId is required!']
+    employeeId: {
+        type: String,
+        required: [true, 'employee ID is required!']
     },
     ticketId: {
         type: String,
@@ -21,8 +21,8 @@ const ticketSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ["used", "unused"],
-        default: "unused"
+        enum: ["in progress", "served"],
+        default: "in progress"
     }
 }, { timestamps: true })
 
