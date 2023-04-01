@@ -10,7 +10,7 @@ const getUser = async( object ) => {
 }
 
 const getallUsers = async() => {
-    return userModel.find({ isAdmin: false })
+    return userModel.find({ user_type: "user" })
 }
 
 const deleteaUser = async( object ) => {
