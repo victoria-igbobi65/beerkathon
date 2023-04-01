@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes')
 const catchAsync = require("../errors/catchAsync");
-const { getallUsers } = require('../services/auth');
+const { getallUsers, deleteaUser } = require('../services/auth');
 
 exports.getEmployees = catchAsync( async( req, res ) => {
 
@@ -9,5 +9,17 @@ exports.getEmployees = catchAsync( async( req, res ) => {
         status: true,
         nbhits: users.length,
         users: users
+    })
+})
+
+exports.deleteUser = catchAsync( async( req, res ) => {
+
+    const userId = req.params.id
+    await deleteaUser({ _id: userId })
+
+    console.log( userId )
+    res.status( StatusCodes.NO_CONTENT ).json({
+        status: true,
+        msg: null
     })
 })
