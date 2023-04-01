@@ -3,6 +3,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const { userRouter } = require('./src/routes/users')
 const { ticketRouter } = require('./src/routes/ticket')
 const { authRouter } = require("./src/routes/auth");
 const globalErrorHandler = require('./src/errors/errorhandler')
@@ -19,7 +20,7 @@ app.use(cors());
 app.use(helmet());
 app.use('/auth', authRouter )
 app.use('/ticket', ticketRouter )
-
+app.use('/users', userRouter )
 
 
 
