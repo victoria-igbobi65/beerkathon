@@ -13,4 +13,8 @@ const getallUsers = async() => {
     return userModel.find({ isAdmin: false })
 }
 
-module.exports = { addUser, getUser, getallUsers }
+const deleteaUser = async( object ) => {
+    return userModel.findByIdAndDelete( object )
+}  
+
+module.exports = { addUser, getUser, getallUsers, deleteaUser }
