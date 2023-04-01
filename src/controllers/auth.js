@@ -10,7 +10,7 @@ exports.signup = catchAsync( async( req, res) => {
 
     const { email, id } = req.body;
     const employeePassword = uniqueId()
-    
+
     await transaction( async( session ) => {
         await addUser({ employeeId: id, email: email, password: employeePassword }, session );
         await welcomeMail(email, employeePassword);
