@@ -6,7 +6,11 @@ const addUser = async( object ) => {
 }
 
 const getUser = async( object ) => {
-    return userModel.findOne( object ).select("+password")
+    return userModel.findOne( object ).select("+password +isAdmin")
 }
 
-module.exports = { addUser, getUser }
+const getallUsers = async() => {
+    return userModel.find({ isAdmin: false })
+}
+
+module.exports = { addUser, getUser, getallUsers }
