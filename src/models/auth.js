@@ -22,10 +22,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: true
     },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-        select: false
+    user_type: {
+        type: String,
+        default: "user",
+        enum: ["user", "admin", "vendor"]
     }
 })
 
