@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    _id: {
+    employeeId: {
         type: String,
         required: [true, "please provide employee ID number!"],
+        unique: true
     },
     email: {
         type: String,
@@ -23,7 +24,8 @@ const userSchema = new Schema({
     },
     isAdmin: {
         type: Boolean,
-        default: false
+        default: false,
+        select: false
     }
 })
 
