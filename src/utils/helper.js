@@ -1,11 +1,11 @@
-const {v4: uuid4} = require('uuid')
+
 const jwt = require("jsonwebtoken");
 const { nanoid } = require('nanoid');
 const { promisify } = require('util')
 const CONFIG = require('../../config/env')
 
 const uniqueId = () => {
-    return uuid4()
+    return nanoid()
 }
 
 const signToken = (id) => {
