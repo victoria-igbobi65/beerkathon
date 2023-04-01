@@ -1,24 +1,44 @@
 const { StatusCodes } = require('http-status-codes')
 const catchAsync = require("../errors/catchAsync");
-const { getUser } = require("../services/auth");
 const { generateTicket } = require("../utils/helper");
-const { saveTicket } = require('../services/ticket');
+const { saveTicket, updateTicketStatus, getTicket, getTickets } = require('../services/ticket');
 
 
 exports.ticket = catchAsync( async( req, res ) => {
 
     const { meal, price } = req.body;
-    const userId = req.user;
-    const user = await getUser({ _id: userId })
+    const user = req.user;
 
     const ticket = generateTicket()
-    await saveTicket({ meal: meal, price: price, userId : userId, ticketId: ticket });
+    await saveTicket({ meal: meal, price: price, employeeId : user.employeeId, ticketId: ticket });
 
     /* update ticket availability status */
     user.ticketAvailable = false;
     await user.save()
 
     res.status( StatusCodes.OK ).json({
-        ticket: ticket 
+        data: ticket 
+    })
+})
+
+exports.updateTicket = catchAsync( async( req, res ) => {
+
+    const mealTicketId = req.params.id, status = "served"
+    const updatedTicket = await updateTicketStatus( mealTicketId, status )
+
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        data: updatedTicket
+    })
+
+})
+
+exports.allOrders = catchAsync( async( req, res ) => {
+
+    const orders = await getTickets()
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        nbhits: orders.length,
+        data: orders
     })
 })
