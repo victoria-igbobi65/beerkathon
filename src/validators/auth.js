@@ -32,12 +32,11 @@ const registerSchema = joi.object().keys({
 /* Login validator */
 const loginSchema = joi.object().keys({
     
-    email: joi
+    id: joi
         .string()
-        .email()
         .trim()
         .required()
-        .error(new Error("Provide valid email address")),
+        .error(new Error("Provide valid identification!")),
     password: joi
         .string()
         .min(1)
