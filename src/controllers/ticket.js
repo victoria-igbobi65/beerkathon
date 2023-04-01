@@ -7,11 +7,12 @@ const { saveTicket } = require('../services/ticket');
 
 exports.ticket = catchAsync( async( req, res ) => {
 
+    const { meal, price } = req.body;
     const userId = req.user;
     const user = await getUser({ _id: userId })
 
     const ticket = generateTicket()
-    await saveTicket({ userId : userId, ticketId: ticket });
+    await saveTicket({ meal: meal, price: price, userId : userId, ticketId: ticket });
 
     /* update ticket availability status */
     user.ticketAvailable = false;
