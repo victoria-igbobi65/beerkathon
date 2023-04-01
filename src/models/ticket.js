@@ -3,6 +3,14 @@ const Schema = mongoose.Schema;
 
 
 const ticketSchema = new Schema({
+    meal:{
+        type: String,
+        required:[true, 'Meal name required!']
+    },
+    price: {
+        type: String,
+        required: [true, "Meal price required!"]
+    },
     userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'userId is required!']
