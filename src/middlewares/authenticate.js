@@ -6,8 +6,8 @@ const { decodeToken } = require("../utils/helper");
 
 
 module.exports =  catchAsync( async( req, res, next) => {
-    const token = req.cookies.refresh_token;
 
+    const token = req.cookies.refresh_token;
     if ( !token ){
         throw new AppError("You are not logged in!", StatusCodes.FORBIDDEN);
     }
@@ -18,10 +18,10 @@ module.exports =  catchAsync( async( req, res, next) => {
     }
 
     const user = await getUser({ _id: userId })
-    if( !user ){
+    if( !user  ){
         throw new AppError('User no longer exists!', StatusCodes.FORBIDDEN )
     }
 
-    req.user = userId;
+    req.user = user;
     next()
 })
