@@ -9,6 +9,7 @@ const { authRouter } = require("./src/routes/auth");
 const globalErrorHandler = require('./src/errors/errorhandler')
 const unknownEndpoint = require('./src/middlewares/unknownEndpoint')
 const CONFIG = require('./config/env')
+const { meRouter } = require('./src/routes/me')
 require('./config/db')( CONFIG.DBURL )
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(helmet());
 app.use('/auth', authRouter )
 app.use('/ticket', ticketRouter )
 app.use('/users', userRouter )
+app.use('/me', meRouter )
 
 
 
