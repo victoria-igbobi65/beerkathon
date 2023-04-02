@@ -25,7 +25,7 @@ const decodeToken = async (token) => {
 };
 
 const generateTicket = () => {
-    return nanoid();
+    return nanoid(5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
 
