@@ -34,6 +34,7 @@ const devHandler = (err, req, res, next) => {
     res.status(statusCode).json({
         status: status,
         message: err.message,
+        stack: err.stack
     });
 };
 
