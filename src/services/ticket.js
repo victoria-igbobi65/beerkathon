@@ -13,8 +13,8 @@ const getTicket = async( object ) => {
     return ticketModel.findOne( object )
 }
 
-const getTickets = async() => {
-    return ticketModel.find({})
+const getTickets = async( sortBy ) => {
+    return ticketModel.find({}).sort( sortBy )
 }
 
 module.exports={ saveTicket, updateTicketStatus, getTicket, getTickets }
