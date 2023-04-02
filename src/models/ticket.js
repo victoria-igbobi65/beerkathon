@@ -11,6 +11,10 @@ const ticketSchema = new Schema({
         type: String,
         required: [true, "Meal price required!"]
     },
+    category:{
+        type: String,
+        required: [true, "Meal category required!"]
+    },
     employeeId: {
         type: String,
         required: [true, 'employee ID is required!']
