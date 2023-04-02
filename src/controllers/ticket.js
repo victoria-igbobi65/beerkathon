@@ -6,11 +6,11 @@ const { saveTicket, updateTicketStatus, getTicket, getTickets } = require('../se
 
 exports.ticket = catchAsync( async( req, res ) => {
 
-    const { meal, price } = req.body;
+    const { meal, price, category } = req.body;
     const user = req.user;
 
     const ticket = generateTicket()
-    await saveTicket({ meal: meal, price: price, employeeId : user.employeeId, ticketId: ticket });
+    await saveTicket({ meal: meal, price: price, category: category, employeeId : user.employeeId, ticketId: ticket });
 
     /* update ticket availability status */
     user.ticketAvailable = false;
@@ -35,7 +35,8 @@ exports.updateTicket = catchAsync( async( req, res ) => {
 
 exports.allOrders = catchAsync( async( req, res ) => {
 
-    const orders = await getTickets()
+    const sortBy = req.query.sort? req.query.sort.split(',').join(' '): '-createdAt';
+    const orders = await getTickets( sortBy )
     res.status( StatusCodes.OK ).json({
         status: true,
         nbhits: orders.length,
