@@ -25,18 +25,22 @@ const userSchema = new Schema({
     user_type: {
         type: String,
         default: "user",
-        enum: ["user", "admin", "vendor"]
+        enum: ["user", "admin", "vendor"],
+        select: false
     }
 })
 
 
-userSchema.pre("save", async function () {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+userSchema.pre("save", async function ( next ) {
+    // run thiis function if password wasmodified
+    if (!this.isModified("password")) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
 });
 
 userSchema.methods.correctPassword = async ( candidatePassword, userPassword) => {
     return await bcrypt.compare(candidatePassword, userPassword);
+    
 }; 
 
 const userModel = mongoose.model('user', userSchema)
