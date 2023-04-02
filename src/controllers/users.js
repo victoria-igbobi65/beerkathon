@@ -22,3 +22,13 @@ exports.deleteUser = catchAsync( async( req, res ) => {
         msg: null
     })
 })
+
+exports.me = catchAsync( async( req, res ) => {
+
+    const user = req.user;
+    user.password = undefined, user.user_type = undefined
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        data: user
+    })
+})
