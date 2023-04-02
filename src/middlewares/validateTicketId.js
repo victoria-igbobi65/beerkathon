@@ -10,7 +10,7 @@ module.exports = catchAsync( async( req, res, next ) => {
     const found = await getTicket({ _id: id })
 
     if( !found ){
-        throw new AppError('Meal doesn\'t exist!', StatusCodes.NOT_FOUND )
+        throw new AppError('Order doesn\'t exist!', StatusCodes.NOT_FOUND )
     }
 
     next();
