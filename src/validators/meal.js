@@ -15,7 +15,12 @@ const validateBody = (schema) => {
 
 /* Login validator */
 const mealSchema = joi.object().keys({
-    meal : joi
+    category: joi
+        .string()
+        .trim()
+        .required()
+        .error(new Error("Meal category is required!")),
+    meal: joi
         .string()
         .trim()
         .required()
