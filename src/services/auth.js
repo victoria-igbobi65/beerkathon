@@ -6,7 +6,7 @@ const addUser = async( object ) => {
 }
 
 const getUser = async( object ) => {
-    return userModel.findOne( object ).select("+password +isAdmin")
+    return userModel.findOne( object ).select("+password +isAdmin +user_type")
 }
 
 const getallUsers = async() => {
