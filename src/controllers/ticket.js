@@ -1,7 +1,8 @@
 const { StatusCodes } = require('http-status-codes')
 const catchAsync = require("../errors/catchAsync");
-const { generateTicket } = require("../utils/helper");
-const { saveTicket, updateTicketStatus, getTicket, getTickets } = require('../services/ticket');
+const { generateTicket, APIFEATURES, date } = require("../utils/helper");
+const { saveTicket, updateTicketStatus, getTickets, topMeal, orderStats } = require('../services/ticket');
+
 
 
 exports.ticket = catchAsync( async( req, res ) => {
@@ -24,22 +25,56 @@ exports.ticket = catchAsync( async( req, res ) => {
 exports.updateTicket = catchAsync( async( req, res ) => {
 
     const mealTicketId = req.params.id, status = "served"
-    const updatedTicket = await updateTicketStatus( mealTicketId, status )
+    await updateTicketStatus( mealTicketId, status )
 
     res.status( StatusCodes.OK ).json({
         status: true,
-        data: updatedTicket
+        msg: "Meal status update successful!"
     })
 
 })
 
 exports.allOrders = catchAsync( async( req, res ) => {
 
-    const sortBy = req.query.sort? req.query.sort.split(',').join(' '): '-createdAt';
-    const orders = await getTickets( sortBy )
+    const query = APIFEATURES( false, { ...req.query } )
+    const orders = await getTickets( query )
+
     res.status( StatusCodes.OK ).json({
         status: true,
         nbhits: orders.length,
         data: orders
+    })
+})
+
+exports.topFiveMealOfWeek = catchAsync( async( req, res) => {
+    const weekTopMeal = await topMeal()
+
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        nbhits: weekTopMeal.length,
+        data: weekTopMeal
+    })
+})
+
+
+exports.dailyOrders = catchAsync( async( req, res ) => {
+    
+    const query = APIFEATURES( false, { ...req.query } );
+    const orders = await getTickets( query )
+
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        nbhits: orders.length,
+        data: orders
+    })
+})
+
+
+exports.orderStats = catchAsync( async( req, res) => {
+
+    const stats = await orderStats()
+    res.status( StatusCodes.OK ).json({
+        status: true,
+        data: stats
     })
 })
