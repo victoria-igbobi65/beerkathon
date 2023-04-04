@@ -5,7 +5,8 @@
   "main": "config/server.js",
   "scripts": {
     "dev": "nodemon config/server.js",
-    "start": "node config/server.js"
+    "start": "node config/server.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles  --watchAll"
   },
   "author": "Victoria",
   "license": "ISC",
@@ -29,5 +30,9 @@
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
   }
 }
