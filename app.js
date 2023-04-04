@@ -19,10 +19,10 @@ app.use(morgan('dev'))
 app.use(cookieParser());
 app.use(cors()); 
 app.use(helmet());
-app.use('/auth', authRouter )
-app.use('/ticket', ticketRouter )
-app.use('/users', userRouter )
-app.use('/me', meRouter )
+app.use('/api/v1/auth', authRouter )
+app.use('/api/v1/ticket', ticketRouter )
+app.use('/api/v1/users', userRouter )
+app.use('/api/v1/me', meRouter )
 
 
 
