@@ -59,7 +59,7 @@ exports.topFiveMealOfWeek = catchAsync( async( req, res) => {
 
 exports.dailyOrders = catchAsync( async( req, res ) => {
     
-    const query = APIFEATURES( false, { ...req.query } );
+    const query = APIFEATURES( true, { ...req.query } );
     const orders = await getTickets( query )
 
     res.status( StatusCodes.OK ).json({
