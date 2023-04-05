@@ -19,3 +19,9 @@ exports.employeeIDLoginDetails = {
     id: "00000",
     password: "user12345",
 };
+
+exports.orderBody = {
+    meal: "rice",
+    category: "foreign",
+    price: 3000
+}
