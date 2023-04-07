@@ -25,3 +25,5 @@ exports.orderBody = {
     category: "foreign",
     price: 3000
 }
+
+exports.invalidOrderId = "642f1d770bb5357ae1297bce";
