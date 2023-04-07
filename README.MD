@@ -54,6 +54,7 @@ npm run test
 ### Usage
 
 #### Registration
+This endpoint is available to only admins, They provide employee's email and ID number. The employee recieves a mail with their login details. 
 
 * Route: /api/v1/auth/signup
 * Method: POST
@@ -64,9 +65,8 @@ npm run test
   id: employeeId /* A unique ID of numbers with length of 5 */
 }
 ```
-
+* Response StatusCodes:
 ```java
-* Response:
   * 201: success || Created
   * 409: error || Conflict Error
   * 400: error || Bad Request
@@ -75,6 +75,8 @@ npm run test
 ```
 
 #### User Login
+Employees can log in with their credentials.
+
 * Route: /api/v1/auth/login
 * Method: POST
 * Body: 
@@ -85,7 +87,7 @@ npm run test
 }
 
 ```
-* Response
+* Response StatusCodes:
 ```java
   200: success
   400: error || Bad Request
@@ -94,6 +96,8 @@ npm run test
 
 
 #### Vendor Login
+Vendors can log in with the credentials
+
 * Route: /api/v1/auth/vendor/login
 * Method: POST
 * Body: 
@@ -104,7 +108,7 @@ npm run test
 }
 
 ```
-* Response
+* Response StatusCodes:
 ```java
   200: success
   400: error || Bad Request
@@ -112,6 +116,8 @@ npm run test
 ```
 
 #### Admin Login
+Admin can log in to access the admin dashboard and excercise admin previledge.
+
 * Route: /api/v1/auth/admin/login
 * Method: POST
 * Body: 
@@ -122,7 +128,7 @@ npm run test
 }
 
 ```
-* Response
+* Response StatusCodes:
 ```java
   200: success
   400: error || Bad Request
@@ -130,6 +136,8 @@ npm run test
 ```
 
 #### Create New Order
+Users can access this endpoint to place their order and it returns a unique ID for that meal which they can proceed with to the vendor for their meal.
+
 * Route: /api/v1/ticket/
 * Method: POST
 * Body: 
@@ -141,7 +149,7 @@ npm run test
 }
 
 ```
-* Response status Codes: 
+* Response StatusCodes: 
 ```java
   201: success || Created
   401: error || Unauthorized
@@ -151,10 +159,12 @@ npm run test
 ```
 
 #### Update Order
+Vendors can access this endpoint to update an order status from "in progress" to "served".
+
 * Route: /api/v1/ticket/:id
 * Method: PATCH
 * Body: {}
-* Response
+* Response StatusCodes
 ```java
   200: success 
   401: error || Unauthorized
@@ -165,10 +175,12 @@ npm run test
 
 
 #### Get all orders
+This endpoint is available to vendors and admins to get all the orders made.
+
 * Route: /api/v1/ticket/
 * Method: GET
 * Query: 
-  * filter: filters order by status, either in progress or already served.
+  * status: filters order by status, either in progress or already served.
     ```java
       /api/v1/ticket?status=served
     ```
@@ -183,11 +195,109 @@ npm run test
   ```java
     /api/v1/ticket/?page=1&limit=10
   ```
-* Response
-
+* Response StatusCodes:
 ```java
   200: success
   401: error || Unauthorized
   403: error || Forbidden Error
   500: error || Server Error
+```
+
+
+#### Order Statistics
+This endpoint returns a list of the sum of orders made each day in the current month.
+
+* Route: /api/v1/ticket/stats
+* Method: GET
+* Response: 
+```java
+  [
+    {
+      _id: "23rd of march",
+      count: 20
+    },
+    {
+      _id: "24th of march",
+      count: 34
+    },
+    {
+      _id: "25th of march",
+      count: 0
+    }
+  ]
+```
+* Response StatusCodes:
+```java
+  200: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
+```
+
+#### Today Orders
+This endpoint returns all orders made for that day and is only available to vendors and admins.
+
+* Route: /api/v1/ticket/today
+* Method: GET
+* Response StatusCodes:
+```java
+  200: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
+```
+
+
+#### Five Top Meal For the Week
+This endpoint returns the top five meal for the current week. This is calculated based on order data.
+
+* Route: /api/v1/ticket/top-meal
+* Method: GET
+* Response StatusCodes:
+```java
+  200: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
+```
+
+#### Get Employees
+This enpoint is available to only admins and it returns a list of all employees.
+
+* Route: /api/v1/users/
+* Method: GET
+* Response StatusCodes:
+```java
+  200: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
+```
+
+#### Delete a User
+This endpoint allows an admin delete an employee from the DB. 
+```java 
+/*NB: This action is irreversible*/
+```
+* Route: /api/v1/users/
+* Method: DELETE
+* Response StatusCodes:
+```java
+  204: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
+```
+
+#### Current User personal Details
+This endpoint returns the personal data of a logged in user.
+
+* Route: /api/v1/me/
+* Method: GET
+* Response StatusCodes:
+```java
+  204: success
+  401: error || Unauthorized /* Likely cause: Route isn't available to user*/
+  403: error || Forbidden Error /* Likely cause: Not logged in, Invalid Token */
+  500: error || Server Error 
 ```
