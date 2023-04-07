@@ -2,7 +2,6 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const { app } = require("../app");
 const { userModel } = require("../src/models/auth");
-const testHelper = require("./test_helper");
 const CONFIG = require("../config/env");
 
 
