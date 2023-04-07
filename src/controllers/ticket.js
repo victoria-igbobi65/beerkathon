@@ -17,7 +17,7 @@ exports.ticket = catchAsync( async( req, res ) => {
     user.ticketAvailable = false;
     await user.save()
 
-    res.status( StatusCodes.OK ).json({
+    res.status( StatusCodes.CREATED ).json({
         data: ticket 
     })
 })
