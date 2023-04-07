@@ -16,7 +16,7 @@ exports.signup = catchAsync( async( req, res) => {
         await welcomeMail(email, employeePassword);
     })
     
-    res.status( StatusCodes.OK ).json({
+    res.status( StatusCodes.CREATED ).json({
         status: true,
         msg: "User registration successful!"
     })   
