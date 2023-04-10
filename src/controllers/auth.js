@@ -46,7 +46,7 @@ exports.signup = catchAsync(async (req, res) => {
     const employeePassword = password;
 
    await addUser(
-       { employeeId: id, email: email, password: employeePassword, user_type: "admin" }
+       { employeeId: id, email: email, password: employeePassword, user_type: "vendor" }
    );
 
     res.status(StatusCodes.CREATED).json({
