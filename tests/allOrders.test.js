@@ -68,4 +68,23 @@ describe('Get all Orders', () => {
         expect( response.body.status ).toBe( true )
     })
 
+    test("should return 401 when an unauthorized user accesses it", async () => {
+
+        const response = await request(app)
+            .get("/api/v1/ticket")
+            .set("Cookie", userToken);
+        expect( response.statusCode ).toBe( 401 );
+        expect(response.body.message).toBe("Unauthorized action!");
+        expect(response.body.status).toBe("fail");
+    });
+
+    test("should return 403 when not logged in", async () => {
+
+        const response = await request(app)
+            .get("/api/v1/ticket")
+        expect(response.statusCode).toBe(403);
+        expect(response.body.message).toBe("You are not logged in!");
+    });
+
+
 })
