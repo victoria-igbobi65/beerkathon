@@ -39,7 +39,7 @@ describe("Create Orders", () => {
             .post('/api/v1/ticket/')
             .send( testHelper.orderBody )
             .set("Cookie", userToken);
-        expect( response.statusCode ).toBe( 200 )
+        expect( response.statusCode ).toBe( 201 )
         expect( response.body.data.length ).toBe( 5 )
     })
 
