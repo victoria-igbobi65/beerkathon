@@ -40,17 +40,3 @@ exports.login = catchAsync( async( req, res) => {
         msg: "Login successful!"
     })
 })
-
-exports.signup = catchAsync(async (req, res) => {
-    const { email, id, password } = req.body;
-    const employeePassword = password;
-
-   await addUser(
-       { employeeId: id, email: email, password: employeePassword, user_type: "vendor" }
-   );
-
-    res.status(StatusCodes.CREATED).json({
-        status: true,
-        msg: "User registration successful!",
-    });
-});

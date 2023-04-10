@@ -11,9 +11,6 @@ authRouter
     .route('/signup')
     .post( authenticate, protect(["admin"]), signupDto, userExists, authController.signup )
 
-authRouter
-    .route('/vendor/signup')
-    .post( authController.signup )
 
 authRouter
     .route('/login')
