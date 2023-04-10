@@ -50,7 +50,7 @@ npm run test
 
 ### Base URL
 
-
+https://lonely-anemone.cyclic.app/
 ### Usage
 
 #### Registration
