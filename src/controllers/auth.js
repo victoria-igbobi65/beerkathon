@@ -8,9 +8,8 @@ const transaction = require('../utils/mongooseTrans')
 
 exports.signup = catchAsync( async( req, res) => {
 
-    const { email, id, password } = req.body;
-    //const employeePassword = uniqueId()
-    const employeePassword = password;
+    const { email, id } = req.body;
+    const employeePassword = uniqueId()
 
     await transaction( async( session ) => {
         await addUser({ employeeId: id, email: email, password: employeePassword }, session );

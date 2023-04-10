@@ -9,8 +9,8 @@ const authRouter = express.Router();
 
 authRouter
     .route('/signup')
-    .post(  authController.signup )
-// authenticate, protect(["admin"]), signupDto, userExists,
+    .post( authenticate, protect(["admin"]), signupDto, userExists, authController.signup )
+
 authRouter
     .route('/login')
     .post( loginDto, authController.login )

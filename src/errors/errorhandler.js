@@ -63,7 +63,8 @@ var prodHandler = (err, req, res, next) => {
         });
     } else {
 
-        logger.error( err )
+        //logger.error( err )
+        console.log( err )
         return res.status(500).json({
             status: "error",
             message: "Server Issues!",
