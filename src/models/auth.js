@@ -18,13 +18,13 @@ const userSchema = new Schema({
         select: false,
         required: [true, "Please provide password!"],
     },
-    ticketAvailable: {
-        type: Boolean,
-        default: true
-    },
+    // ticketAvailable: {
+    //     type: Boolean,
+    //     default: true
+    // },
     user_type: {
         type: String,
-        default: "user",
+        default: "admin",
         enum: ["user", "admin", "vendor"],
         select: false
     }
